@@ -31,15 +31,17 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
 				user,
 			})
 
-			await Promise.allSettled(
-				(hooks as { url: string }[]).map(({ url }) =>
-					axios.get(url, {
-						headers: {
-							type: 'payment',
-							id,
-						},
-						timeout: 300,
-					})
+			console.log(
+				await Promise.allSettled(
+					(hooks as { url: string }[]).map(({ url }) =>
+						axios.post(url, {
+							body: {
+								type: 'payment',
+								id,
+							},
+							timeout: 300,
+						})
+					)
 				)
 			)
 		} else {
@@ -61,8 +63,8 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
 			await Promise.allSettled(
 				(hooks as { url: string }[]).map(({ url }) =>
-					axios.get(url, {
-						headers: {
+					axios.post(url, {
+						body: {
 							type: 'transaction',
 							id,
 						},
@@ -71,6 +73,7 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
 				)
 			)
 		}
+		console.log('hhhhh')
 		res.end('hi')
 	}
 	res.end('hi')
