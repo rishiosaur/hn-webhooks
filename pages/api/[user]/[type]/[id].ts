@@ -74,7 +74,6 @@ const Handler = async (req: NextApiRequest, res: NextApiResponse) => {
 			)
 		}
 		console.log('hhhhh')
-		res.end('hi')
 	}
 	res.end('hi')
 }
